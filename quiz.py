@@ -6,6 +6,7 @@ runid = os.urandom(32)
 app = Flask(__name__)
 question_no = -1
 answers = []
+correct_answers = [1,3]
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -49,18 +50,14 @@ def results():
     global answers
     global players
     global question_no
-    result = '<table style="width:100%; font-size: 50pt">'
-    result += '<tr><td>Correct answer</td><td>1</td><td>3</td></tr>'
+    result = '<div style="font-size: 50pt">'
     for player in players:
-        result += '<tr><td>' + player + '</td>'
+        score = 0
         for question_i in range(0, question_no + 1):
-            if player in answers[question_i]:
-                ans = str(answers[question_i][player])
-            else:
-                ans = "X"
-            result += '<td>' + ans + '</td>'
-        result += '</tr>'
-    result += '</table>'
+            if player in answers[question_i] and answers[question_i][player] == correct_answers[question_i]:
+                score += 1
+        result += '<div>' + player + ' ' + str(score) + '</div>'
+    result += '</div>'
     return result
 
 
