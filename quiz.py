@@ -1,7 +1,7 @@
 from flask import Flask, session, redirect, url_for, escape, request
 import os, json
 
-players_count = 0
+players = []
 runid = os.urandom(32)
 app = Flask(__name__)
 question_no = -1
@@ -9,15 +9,15 @@ answers = []
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    global players_count, runid
+    global players, runid
     if 'runid' not in session or session['runid'] != runid:
         session.pop('username', None)
         session['runid'] = runid
     if 'username' not in session:
     # if True:
         if request.method == 'POST':
-            players_count += 1
             session['username'] = request.form['username']
+            players.append(session['username'])
             return redirect(url_for('player_view'))
         else:
             return '''
@@ -38,13 +38,31 @@ def player_view():
 
 @app.route('/question.html')
 def question():
+    global answers
+    global question_no
+    answers = []
+    question_no = -1
     return app.send_static_file('question.html')
 
 @app.route('/result.html')
 def results():
     global answers
-    print('results')
-    return app.send_static_file('result.html')
+    global players
+    global question_no
+    result = '<table style="width:100%; font-size: 50pt">'
+    result += '<tr><td>Correct answer</td><td>1</td><td>3</td></tr>'
+    for player in players:
+        result += '<tr><td>' + player + '</td>'
+        for question_i in range(0, question_no + 1):
+            if player in answers[question_i]:
+                ans = str(answers[question_i][player])
+            else:
+                ans = "X"
+            result += '<td>' + ans + '</td>'
+        result += '</tr>'
+    result += '</table>'
+    return result
+
 
 @app.route('/logout')
 def logout():
@@ -81,8 +99,8 @@ def new_question():
 
 @app.route('/player_count')
 def get_player_count():
-    global players_count
-    return str(players_count)
+    global players
+    return ", ".join(players)
 
 # set the secret key.  keep this really secret:
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'

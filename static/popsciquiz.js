@@ -16,7 +16,7 @@ var popsciquiz = {
             $('#players_count').html(data);
         });
     },
-    msPerQuestion: 20000,
+    msPerQuestion: 5000,
     questionNo: 0,
     questionCount: 2,
     questions: ["Who made the song Space Oddity?", "What do we scientifically call a rock, that landed on Earth from outer space?"],

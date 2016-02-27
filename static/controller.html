@@ -3,11 +3,11 @@
     <script src="/static/popsciquiz.js"></script>
     <script>
         window.onload = function () {
-            window.setInterval(popsciquiz.setPlayerCount, 100);
+            window.setInterval(popsciquiz.setPlayerCount, 500);
         };
     </script>
     <style>
-        #title, #url_div, #Players{
+        #title, #url_div, #Players, #players_count{
             font-size: 60pt;
             margin-bottom: 20pt;
             text-align: center;
@@ -44,5 +44,6 @@
     <div id="title">Pop Science Quiz</div>
     <div id="url_div">Connect to: <span id="url_loc">192.168.2.236:35123</span></div>
     <div id='Start_Button'><a href='question.html' id="start_text">START</a></div>
-    <div id='Players'>Players: <span id="players_count">0</span></div>
+    <div id='Players'>Players:</div>
+    <div id="players_count"></div>
 </body>
