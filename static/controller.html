@@ -6,11 +6,43 @@
             window.setInterval(popsciquiz.setPlayerCount, 100);
         };
     </script>
+    <style>
+        #title, #url_div, #Players{
+            font-size: 60pt;
+            margin-bottom: 20pt;
+            text-align: center;
+        }
+        
+        #title {
+            background-color: #EEEEEE;
+            padding: 20pt;
+        }
+        
+        #Start_Button{
+            left: 25%;
+            width: 50%;
+            height: 10%;
+            margin: 20pt;
+            border: solid 2pt black;
+            background-color: #DDDDDD;
+            position: relative;
+        }
+        
+        #start_text {
+            position: absolute;
+            top: calc(50% - 25pt);
+            font-size: 50pt;
+            text-align: center;
+            width: 100%;
+            text-decoration: none;
+        }
+        
+        
+    </style>
 </head>
 <body>
     <div id="title">Pop Science Quiz</div>
     <div id="url_div">Connect to: <span id="url_loc">192.168.2.236:35123</span></div>
-    <div><button id="start_button">START</button></div>
-    <div>Players: <span id="players_count">0</span></div>
-    <div><button id="reset_button">RESET</button></div>
+    <div id='Start_Button'><a href='question.html' id="start_text">START</a></div>
+    <div id='Players'>Players: <span id="players_count">0</span></div>
 </body>

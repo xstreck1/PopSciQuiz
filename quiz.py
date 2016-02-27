@@ -1,9 +1,11 @@
 from flask import Flask, session, redirect, url_for, escape, request
-import os
+import os, json
 
 players_count = 0
 runid = os.urandom(32)
 app = Flask(__name__)
+question_no = -1
+answers = []
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -40,6 +42,8 @@ def question():
 
 @app.route('/result.html')
 def results():
+    global answers
+    print('results')
     return app.send_static_file('result.html')
 
 @app.route('/logout')
@@ -49,8 +53,25 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/controller.html')
-def contoller():
+def controller():
     return app.send_static_file('controller.html')
+
+@app.route('/answer/<int:post_id>', methods=['POST'])
+def answer(post_id):
+    global question_no
+    global answers
+    if question_no != -1:
+        print(session['username'] + ":" + str(post_id))
+        answers[question_no][session['username']] = post_id
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
+@app.route('/new_question', methods=['POST'])
+def new_question():
+    global question_no
+    global answers
+    question_no += 1
+    answers.append({})
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
 
 #@app.route('/reset')
 #def reset():

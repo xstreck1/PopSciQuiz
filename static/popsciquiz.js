@@ -5,6 +5,7 @@
  */
 
 var popsciquiz = {
+    timer_id: 0,
     hello: function () {
         var test_el = $("#test");
         test_el.html('hello');
@@ -15,13 +16,14 @@ var popsciquiz = {
             $('#players_count').html(data);
         });
     },
-    msPerQuestion: 1000,
+    msPerQuestion: 20000,
     questionNo: 0,
     questionCount: 2,
     questions: ["Who made the song Space Oddity?", "What do we scientifically call a rock, that landed on Earth from outer space?"],
     answers: [["David Bowie", "Michael Jackson", "Madonna", "Tina Turner"], ["Asteroid", "Meteor", "Meteorite", "Rolling Stone"]],
     setNewQuestion: function () {
         if (popsciquiz.questionNo < popsciquiz.questionCount) {
+            $.post('/new_question');
             $("#question_text").html(popsciquiz.questions[popsciquiz.questionNo]);
             for (var i = 1; i < 5; i++) {
                 var name = "#answer_" + i + "_text";
@@ -31,7 +33,11 @@ var popsciquiz = {
             popsciquiz.questionNo++;
         }
         else {
-            window.location.href = "result.html";
+            window.clearInterval(popsciquiz.timer_id);
+            window.location.href = "result.html?" + Math.random();
         }
+    },
+    selected : function(i) {
+        $.post('/answer/' + i);
     }
 };

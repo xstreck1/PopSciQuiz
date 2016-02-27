@@ -35,7 +35,7 @@
     <script>
         window.onload = function () {
             popsciquiz.setNewQuestion();
-            window.setInterval(popsciquiz.setNewQuestion, popsciquiz.msPerQuestion);
+            popsciquiz.timer_id = window.setInterval(popsciquiz.setNewQuestion, popsciquiz.msPerQuestion);
         };
     </script>
 </head>
