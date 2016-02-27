@@ -16,11 +16,23 @@ var popsciquiz = {
             $('#players_count').html(data);
         });
     },
-    msPerQuestion: 5000,
+    msPerQuestion: 25000,
     questionNo: 0,
     questionCount: 2,
-    questions: ["Who made the song Space Oddity?", "What do we scientifically call a rock, that landed on Earth from outer space?"],
-    answers: [["David Bowie", "Michael Jackson", "Madonna", "Tina Turner"], ["Asteroid", "Meteor", "Meteorite", "Rolling Stone"]],
+    questions: [
+        "Which astronaut played Space Oddity at the ISS on a guitar?", 
+        "What do we scientifically call a rock, that landed on Earth from outer space?", 
+        "Which specie does not do cooperative hunting?",
+        "How do you call the process of making RNA based on DNA?",
+        "What is the derivate of x<sup>2</sup>?"],
+    answers: [
+        ["Chris Hadfield", "Mark Whatney", "Matt Kowalski", "Hugh Mann"], 
+        ["Asteroid", "Meteor", "Meteorite", "Rolling Stone"], 
+        ["chimpanzees", "dolphins", "lions", "falcons"],
+        ["translation", "transcription", "transmutation", "transmogrification"],
+        ["x", "2x", "x<sup>2</sup>", "2x<sup>2</sup>"]
+        
+    ],
     setNewQuestion: function () {
         if (popsciquiz.questionNo < popsciquiz.questionCount) {
             $.post('/new_question');

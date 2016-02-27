@@ -6,7 +6,7 @@ runid = os.urandom(32)
 app = Flask(__name__)
 question_no = -1
 answers = []
-correct_answers = [1,3]
+correct_answers = [1,3,4,2,2]
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -22,9 +22,9 @@ def login():
             return redirect(url_for('player_view'))
         else:
             return '''
-            <form action="" method="post">
-                <p><input type=text name=username>
-                <p><input type=submit value=Login>
+            <form action="" method="post" >
+                <p><input type=text name=username style="font-size: 50pt;">
+                <p><input type=submit value=Login style="font-size: 50pt;">
             </form>
         '''
     else:
