@@ -1,6 +1,11 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="/static/controller.js"></script>
+    <script src="/static/popsciquiz.js"></script>
+    <script>
+        window.onload = function () {
+            window.setInterval(popsciquiz.setPlayerCount, 100);
+        };
+    </script>
 </head>
 <body>
     <div id="title">Pop Science Quiz</div>

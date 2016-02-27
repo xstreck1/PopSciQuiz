@@ -34,13 +34,21 @@ def player_view():
     else:
         return app.send_static_file('player_view.html')
 
+@app.route('/question.html')
+def question():
+    return app.send_static_file('question.html')
+
+@app.route('/result.html')
+def results():
+    return app.send_static_file('result.html')
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
     return redirect(url_for('login'))
 
-@app.route('/controller')
+@app.route('/controller.html')
 def contoller():
     return app.send_static_file('controller.html')
 

@@ -1,0 +1,53 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="/static/popsciquiz.js"></script>
+    <style>
+        #question_block {
+            width: 100%;
+            background-color: #DDDDDD;
+            height: 50%;
+            position: relative;
+        }
+        #question_text {
+            position: absolute;
+            top: calc(50% - 25pt);
+            width: 100%;
+            text-align: center;
+            font-size: 50pt;
+        }
+        .answer_block {
+            width: 100%;
+            height: calc(12.5% - 10pt);
+            border-top: solid 10pt white;
+            background-color: #DDDDDD;
+            position: relative;
+        }
+        .answer_text {
+            position: absolute;
+            top: calc(50% - 25pt);
+            font-size: 50pt;
+        }
+        body {
+            margin: 0px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            popsciquiz.setNewQuestion();
+            window.setInterval(popsciquiz.setNewQuestion, popsciquiz.msPerQuestion);
+        };
+    </script>
+</head>
+<body>
+    <div id="question_block"><span id='question_text'>QUESTION</span></div>
+    <div id='answer_1_block' class='answer_block'>
+        <span id='answer_1_text' class='answer_text'>answer 1</span></div>
+    <div id='answer_2_block' class='answer_block'>
+        <span id='answer_2_text' class='answer_text'>answer 2</span></div>
+    <div id='answer_3_block' class='answer_block'>
+        <span id='answer_3_text' class='answer_text'>answer 3</span></div>
+    <div id='answer_4_block' class='answer_block'>
+        <span id='answer_4_text' class='answer_text'>answer 4</span></div>
+</body>
+</html>
