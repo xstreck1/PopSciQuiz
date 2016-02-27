@@ -18,7 +18,7 @@ var popsciquiz = {
     },
     msPerQuestion: 25000,
     questionNo: 0,
-    questionCount: 2,
+    questionCount: 5,
     questions: [
         "Which astronaut played Space Oddity at the ISS on a guitar?", 
         "What do we scientifically call a rock, that landed on Earth from outer space?", 
