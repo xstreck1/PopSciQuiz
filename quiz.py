@@ -6,7 +6,7 @@ runid = os.urandom(32)
 app = Flask(__name__)
 question_no = -1
 answers = []
-correct_answers = [1,3,4,2,2]
+correct_answers = [1, 3, 4, 2, 2]
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -16,7 +16,6 @@ def login():
         session.pop('username', None)
         session['runid'] = runid
     if 'username' not in session:
-    # if True:
         if request.method == 'POST':
             session['username'] = request.form['username']
             players.append(session['username'])
