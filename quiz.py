@@ -8,6 +8,7 @@ question_no = -1
 answers = []
 correct_answers = [1,3,4,2,2]
 
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     global players, runid
@@ -30,12 +31,14 @@ def login():
     else:
         return redirect(url_for('player_view'))
 
+
 @app.route('/player_view')
 def player_view():
     if 'runid' not in session or session['runid'] != runid or 'username' not in session:
         return redirect(url_for('login'))
     else:
         return app.send_static_file('player_view.html')
+
 
 @app.route('/question.html')
 def question():
@@ -45,6 +48,7 @@ def question():
     question_no = -1
     return app.send_static_file('question.html')
 
+
 @app.route('/result.html')
 def results():
     global answers
@@ -53,8 +57,13 @@ def results():
     result = '<div style="font-size: 50pt">'
     for player in players:
         score = 0
+        player = str(player) #guarantee player is a string
         for question_i in range(0, question_no + 1):
-            if player in answers[question_i] and answers[question_i][player] == correct_answers[question_i]:
+            if len(answers) <= question_no:
+                print("Trying to access a question that does not exist")
+            elif len(correct_answers):
+                print("Correct answer to a question is not known")
+            elif player in answers[question_i] and answers[question_i][player] == correct_answers[question_i]:
                 score += 1
         result += '<div>' + player + ' ' + str(score) + '</div>'
     result += '</div>'
@@ -67,9 +76,11 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
+
 @app.route('/controller.html')
 def controller():
     return app.send_static_file('controller.html')
+
 
 @app.route('/answer/<int:post_id>', methods=['POST'])
 def answer(post_id):
@@ -79,6 +90,7 @@ def answer(post_id):
         print(session['username'] + ":" + str(post_id))
         answers[question_no][session['username']] = post_id
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+
 
 @app.route('/new_question', methods=['POST'])
 def new_question():
@@ -94,6 +106,7 @@ def new_question():
 #    app.secret_key = os.urandom(32)
 #    return ''
 
+
 @app.route('/player_count')
 def get_player_count():
     global players
@@ -103,4 +116,4 @@ def get_player_count():
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 if __name__ == '__main__':
-    app.run(host='192.168.2.236', port="35123")
+    app.run(debug=True, host='192.168.2.236', port="35123")
